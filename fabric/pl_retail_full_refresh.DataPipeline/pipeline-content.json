@@ -1,0 +1,494 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "6b96e6d8-da17-b38b-442f-ee3cab0dc201",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "environment": {
+              "value": {
+                "value": "@pipeline().parameters.p_environment",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "DEBUG": {
+              "value": {
+                "value": "@pipeline().parameters.p_debug",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "CONFIG_VERSION": {
+              "value": {
+                "value": "@pipeline().parameters.p_config_version",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "load_date": {
+              "value": {
+                "value": "@formatDateTime(utcNow(), 'yyyy-MM-dd')",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "PIPELINE_NAME": {
+              "value": {
+                "value": "@pipeline().PipelineName",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "1_1_Bronze_Load",
+        "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "016c25de-6b18-b287-47dc-bd66a042bf63",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "environment": {
+              "value": {
+                "value": "@pipeline().parameters.p_environment",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "DEBUG": {
+              "value": {
+                "value": "@pipeline().parameters.p_debug",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "CONFIG_VERSION": {
+              "value": {
+                "value": "@pipeline().parameters.p_config_version",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "load_date": {
+              "value": {
+                "value": "@formatDateTime(utcNow(), 'yyyy-MM-dd')",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "PIPELINE_NAME": {
+              "value": {
+                "value": "@pipeline().PipelineName",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "2_1_Silver_clean_sales",
+        "dependsOn": [
+          {
+            "activity": "1_1_Bronze_Load",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "4d876308-1e19-84e6-46c2-b70576b390bb",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "environment": {
+              "value": {
+                "value": "@pipeline().parameters.p_environment",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "DEBUG": {
+              "value": {
+                "value": "@pipeline().parameters.p_debug",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "CONFIG_VERSION": {
+              "value": {
+                "value": "@pipeline().parameters.p_config_version",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "load_date": {
+              "value": {
+                "value": "@formatDateTime(utcNow(), 'yyyy-MM-dd')",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "PIPELINE_NAME": {
+              "value": {
+                "value": "@pipeline().PipelineName",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "2_2_Silver_dims_creation",
+        "dependsOn": [
+          {
+            "activity": "2_1_Silver_clean_sales",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "d4bd7643-9af3-914f-43cd-79f7a9e2c80d",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "environment": {
+              "value": {
+                "value": "@pipeline().parameters.p_environment",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "DEBUG": {
+              "value": {
+                "value": "@pipeline().parameters.p_debug",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "CONFIG_VERSION": {
+              "value": {
+                "value": "@pipeline().parameters.p_config_version",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "load_date": {
+              "value": {
+                "value": "@formatDateTime(utcNow(), 'yyyy-MM-dd')",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "PIPELINE_NAME": {
+              "value": {
+                "value": "@pipeline().PipelineName",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "3_1_Gold_build_dimensions",
+        "dependsOn": [
+          {
+            "activity": "2_2_Silver_dims_creation",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "8b57fdac-b54d-a56f-46ac-c51153aeabef",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "environment": {
+              "value": {
+                "value": "@pipeline().parameters.p_environment",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "DEBUG": {
+              "value": {
+                "value": "@pipeline().parameters.p_debug",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "CONFIG_VERSION": {
+              "value": {
+                "value": "@pipeline().parameters.p_config_version",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "load_date": {
+              "value": {
+                "value": "@formatDateTime(utcNow(), 'yyyy-MM-dd')",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "PIPELINE_NAME": {
+              "value": {
+                "value": "@pipeline().PipelineName",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "3_2_Gold_build_fact_sales",
+        "dependsOn": [
+          {
+            "activity": "3_1_Gold_build_dimensions",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "c976364a-d666-9e93-4fff-9eb6de062452",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "environment": {
+              "value": {
+                "value": "@pipeline().parameters.p_environment",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "DEBUG": {
+              "value": {
+                "value": "@pipeline().parameters.p_debug",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "CONFIG_VERSION": {
+              "value": {
+                "value": "@pipeline().parameters.p_config_version",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "load_date": {
+              "value": {
+                "value": "@formatDateTime(utcNow(), 'yyyy-MM-dd')",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "PIPELINE_NAME": {
+              "value": {
+                "value": "@pipeline().PipelineName",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "3_3_Gold_build_aggregates",
+        "dependsOn": [
+          {
+            "activity": "3_2_Gold_build_fact_sales",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "75b1e23d-045f-ace4-472a-8760ada101a1",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "environment": {
+              "value": {
+                "value": "@pipeline().parameters.p_environment",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "run_id": {
+              "value": {
+                "value": "@pipeline().RunId",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "DEBUG": {
+              "value": {
+                "value": "@pipeline().parameters.p_debug",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "CONFIG_VERSION": {
+              "value": {
+                "value": "@pipeline().parameters.p_config_version",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "load_date": {
+              "value": {
+                "value": "@formatDateTime(utcNow(), 'yyyy-MM-dd')",
+                "type": "Expression"
+              },
+              "type": "string"
+            },
+            "PIPELINE_NAME": {
+              "value": {
+                "value": "@pipeline().PipelineName",
+                "type": "Expression"
+              },
+              "type": "string"
+            }
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "3_4_Gold_build_customer_RFM",
+        "dependsOn": [
+          {
+            "activity": "3_3_Gold_build_aggregates",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ],
+    "parameters": {
+      "p_environment": {
+        "type": "string",
+        "defaultValue": "\"test\""
+      },
+      "p_run_id": {
+        "type": "string",
+        "defaultValue": "\"\""
+      },
+      "p_load_date": {
+        "type": "string",
+        "defaultValue": "\"\""
+      },
+      "p_debug": {
+        "type": "bool",
+        "defaultValue": true
+      },
+      "p_config_version": {
+        "type": "string",
+        "defaultValue": "\"1.0.0\""
+      },
+      "p_pipeline_name": {
+        "type": "string",
+        "defaultValue": "\"pl_retail_full_refresh\""
+      }
+    }
+  }
+}
